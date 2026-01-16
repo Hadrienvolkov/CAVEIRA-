@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Simulados VUNESP</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<h1>Simulados – Banca VUNESP</h1>
+<p>Escolha o modo de estudo:</p>
+<ul>
+<li><a href="simulado.html">Simulado Completo</a></li>
+<li><a href="treino.html">Modo Treino</a></li>
+</ul>
+<label>
+<input type="checkbox" id="atualidades"> Incluir Atualidades
+</label>
+<script>
+localStorage.setItem("usarAtualidades", false);
+document.getElementById("atualidades").addEventListener("change", e=>{
+  localStorage.setItem("usarAtualidades", e.target.checked);
+});
+</script>
+</body>
+</html>
