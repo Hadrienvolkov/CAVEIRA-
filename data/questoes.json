@@ -2,7 +2,7 @@
   {
     "id": 1,
     "materia": "Processo Penal",
-    "enunciado": "Segundo o Código de Processo Penal, o prazo para conclusão do inquérito policial, quando o indiciado estiver preso, será de",
+    "enunciado": "Segundo o CPP, o prazo do inquérito policial, quando o indiciado estiver preso, será de:",
     "alternativas": {
       "A": "5 dias",
       "B": "10 dias",
@@ -11,6 +11,34 @@
       "E": "45 dias"
     },
     "gabarito": "B",
-    "comentario": "A VUNESP cobra literalidade do art. 10 do CPP: o prazo do inquérito é de 10 dias quando o indiciado estiver preso."
+    "comentario": "Art. 10 do CPP – literalidade cobrada pela VUNESP."
+  },
+  {
+    "id": 2,
+    "materia": "Direito Penal",
+    "enunciado": "O crime de peculato está previsto no artigo:",
+    "alternativas": {
+      "A": "312 do Código Penal",
+      "B": "313 do Código Penal",
+      "C": "155 do Código Penal",
+      "D": "168 do Código Penal",
+      "E": "299 do Código Penal"
+    },
+    "gabarito": "A",
+    "comentario": "Art. 312 do CP."
+  },
+  {
+    "id": 3,
+    "materia": "Constitucional",
+    "enunciado": "Constitui fundamento da República Federativa do Brasil:",
+    "alternativas": {
+      "A": "Pluralismo político",
+      "B": "Livre iniciativa",
+      "C": "Legalidade",
+      "D": "Eficiência",
+      "E": "Moralidade"
+    },
+    "gabarito": "A",
+    "comentario": "Art. 1º da Constituição Federal."
   }
 ]
