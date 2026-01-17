@@ -1,67 +1,62 @@
 let questoes = [];
 let questoesSelecionadas = [];
 let indice = 0;
-let respostas = {};
+let respostas = [];
 
-const modo = localStorage.getItem("modo");
-const materiaEscolhida = localStorage.getItem("materia");
+const modo = localStorage.getItem("modo") || "simulado";
+const materiaEscolhida = localStorage.getItem("materia") || "";
 
 fetch("./data/questoes.json")
-  .then(res => res.json())
-  .then(data => {
-    questoes = data;
-    prepararSimulado();
+  .then(r => r.json())
+  .then(dados => {
+    questoes = dados;
+
+    if (modo === "treino" && materiaEscolhida) {
+      questoesSelecionadas = questoes.filter(q => q.materia === materiaEscolhida);
+    } 
+    else if (modo === "inteligente") {
+      const erros = JSON.parse(localStorage.getItem("erros") || "{}");
+      questoesSelecionadas = questoes.sort((a, b) => 
+        (erros[b.materia] || 0) - (erros[a.materia] || 0)
+      ).slice(0, 80);
+    } 
+    else {
+      questoesSelecionadas = [...questoes];
+    }
+
+    questoesSelecionadas = questoesSelecionadas
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 80);
+
     mostrarQuestao();
   });
 
-function prepararSimulado() {
-  if (modo === "treino" && materiaEscolhida) {
-    questoesSelecionadas = questoes.filter(q => q.materia === materiaEscolhida);
-  } 
-  else if (modo === "inteligente") {
-    const erros = JSON.parse(localStorage.getItem("erros") || "{}");
-    questoesSelecionadas = questoes.sort((a, b) =>
-      (erros[b.materia] || 0) - (erros[a.materia] || 0)
-    );
-  } 
-  else {
-    questoesSelecionadas = [...questoes];
-  }
-
-  embaralhar(questoesSelecionadas);
-  questoesSelecionadas = questoesSelecionadas.slice(0, 80);
-}
-
 function mostrarQuestao() {
   const q = questoesSelecionadas[indice];
+  if (!q) return;
+
+  document.getElementById("contador").innerText =
+    `Questão ${indice + 1} de ${questoesSelecionadas.length}`;
+
   const area = document.getElementById("questao");
-  const contador = document.getElementById("contador");
-
-  contador.innerText = `Questão ${indice + 1} de ${questoesSelecionadas.length}`;
-
   area.innerHTML = `
     <div class="card">
-      <p class="materia">${q.materia}</p>
-      <p class="enunciado">${q.enunciado}</p>
-
+      <p><strong>${q.enunciado}</strong></p>
       ${Object.entries(q.alternativas).map(([k, v]) => `
-        <label class="alternativa">
-          <input type="radio" name="alt" 
-            ${respostas[q.id] === k ? "checked" : ""}
-            onchange="responder('${q.id}', '${k}')">
-          <span>${k}) ${v}</span>
-        </label>
+        <label>
+          <input type="radio" name="alt" value="${k}"
+          ${respostas[indice] === k ? "checked" : ""}
+          onclick="responder('${k}')">
+          ${k}) ${v}
+        </label><br>
       `).join("")}
-
-      ${modo !== "simulado" ? `<div class="comentario">
-        <strong>Comentário:</strong><br>${q.comentario}
-      </div>` : ""}
+      ${modo !== "simulado" ? `<hr><p><strong>Comentário:</strong> ${q.comentario}</p>` : ""}
     </div>
   `;
 }
 
-function responder(id, alternativa) {
-  respostas[id] = alternativa;
+function responder(opcao) {
+  respostas[indice] = opcao;
 }
 
 function proxima() {
@@ -80,30 +75,26 @@ function anterior() {
 
 function finalizar() {
   let acertos = 0;
-  let errosMateria = {};
+  let erros = JSON.parse(localStorage.getItem("erros") || "{}");
 
-  questoesSelecionadas.forEach(q => {
-    if (respostas[q.id] === q.gabarito) {
-      acertos++;
-    } else {
-      errosMateria[q.materia] = (errosMateria[q.materia] || 0) + 1;
-    }
+  questoesSelecionadas.forEach((q, i) => {
+    if (respostas[i] === q.gabarito) acertos++;
+    else erros[q.materia] = (erros[q.materia] || 0) + 1;
   });
 
-  localStorage.setItem("erros", JSON.stringify(errosMateria));
+  localStorage.setItem("erros", JSON.stringify(erros));
 
-  alert(
-    `Simulado finalizado!\n\n` +
-    `Acertos: ${acertos}\n` +
-    `Erros: ${questoesSelecionadas.length - acertos}\n`
-  );
-
-  window.location.href = "diagnostico.html";
-}
-
-function embaralhar(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
+  document.body.innerHTML = `
+    <header>
+      <h2>Resultado Final</h2>
+    </header>
+    <main class="card">
+      <p>Acertos: ${acertos}</p>
+      <p>Total: ${questoesSelecionadas.length}</p>
+      <p>Aproveitamento: ${Math.round((acertos / questoesSelecionadas.length) * 100)}%</p>
+      <br>
+      <button onclick="window.location.href='modo.html'">⬅ Voltar ao início</button>
+      <button onclick="window.location.href='materiais.html'">📚 Estudar meus erros</button>
+    </main>
+  `;
 }
