@@ -7,15 +7,16 @@ body {
 
 header {
   background: #020617;
-  padding: 20px;
+  padding: 16px;
   text-align: center;
+  border-bottom: 1px solid #1e293b;
 }
 
-nav a {
-  margin: 0 10px;
-  color: #93c5fd;
-  text-decoration: none;
-  font-weight: bold;
+#info {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  font-size: 0.9em;
 }
 
 .cards {
@@ -27,20 +28,52 @@ nav a {
 .card {
   background: #020617;
   border: 1px solid #1e293b;
-  padding: 30px;
-  border-radius: 12px;
-  text-align: center;
-  color: #e5e7eb;
-  text-decoration: none;
-  font-size: 1.2em;
+  border-radius: 14px;
+  padding: 24px;
 }
 
-.card:hover {
+.materia {
+  color: #93c5fd;
+  font-size: 0.9em;
+}
+
+.enunciado {
+  font-size: 1.1em;
+  margin: 15px 0;
+}
+
+.alternativa {
+  display: block;
   background: #020617cc;
+  border: 1px solid #1e293b;
+  border-radius: 10px;
+  padding: 12px;
+  margin: 10px 0;
+  cursor: pointer;
 }
 
-#questao, #diagnostico {
-  padding: 20px;
+.alternativa input {
+  margin-right: 10px;
+}
+
+.alternativa:hover {
+  background: #020617;
+}
+
+.comentario {
+  margin-top: 20px;
+  padding: 15px;
+  background: #020617cc;
+  border-left: 4px solid #2563eb;
+}
+
+footer {
+  display: flex;
+  justify-content: space-around;
+  padding: 15px;
+  background: #020617;
+  position: sticky;
+  bottom: 0;
 }
 
 button {
@@ -48,6 +81,6 @@ button {
   color: #fff;
   border: none;
   padding: 12px 20px;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 1em;
 }
