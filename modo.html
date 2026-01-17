@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Escolha o Modo | CAVEIRA PCSP</title>
+<link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+<header>
+  <h1>CAVEIRA</h1>
+  <p>Escolha o modo de estudo – PCSP 2026 (VUNESP)</p>
+</header>
+
+<main class="cards">
+
+  <div class="card">
+    <h3>📝 Simulado Real</h3>
+    <p>80 questões • Prova completa • Sem gabarito</p>
+    <button onclick="iniciar('simulado')">Iniciar</button>
+  </div>
+
+  <div class="card">
+    <h3>🎯 Treino por Matéria</h3>
+    <p>Estudo direcionado com comentários</p>
+    <select id="materia">
+      <option value="Processo Penal">Processo Penal</option>
+      <option value="Direito Penal">Direito Penal</option>
+      <option value="Constitucional">Constitucional</option>
+      <option value="Português">Português</option>
+    </select>
+    <button onclick="iniciar('treino')">Iniciar</button>
+  </div>
+
+  <div class="card">
+    <h3>🤖 Treino Inteligente</h3>
+    <p>Foco automático nos seus erros</p>
+    <button onclick="iniciar('inteligente')">Iniciar</button>
+  </div>
+
+</main>
+
+<script>
+function iniciar(modo) {
+  const materia = document.getElementById("materia")?.value || "";
+  localStorage.setItem("modo", modo);
+  localStorage.setItem("materia", materia);
+  window.location.href = "simulado.html";
+}
+</script>
+
+</body>
+</html>
