@@ -1,15 +1,16 @@
 [
   {
     "id": 1,
-    "materia": "Língua Portuguesa",
-    "enunciado": "A charge tem como assunto principal",
+    "materia": "Processo Penal",
+    "enunciado": "Segundo o Código de Processo Penal, o prazo para conclusão do inquérito policial, quando o indiciado estiver preso, será de",
     "alternativas": {
-      "A": "o uso excessivo de dispositivos tecnológicos.",
-      "B": "as limitações da comunicação via internet.",
-      "C": "o acesso limitado aos meios de comunicação.",
-      "D": "a interação estabelecida nas redes sociais.",
-      "E": "a evolução dos aparelhos de comunicação."
+      "A": "5 dias",
+      "B": "10 dias",
+      "C": "15 dias",
+      "D": "30 dias",
+      "E": "45 dias"
     },
-    "gabarito": "A"
+    "gabarito": "B",
+    "comentario": "A VUNESP cobra literalidade do art. 10 do CPP: o prazo do inquérito é de 10 dias quando o indiciado estiver preso."
   }
 ]
