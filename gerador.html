@@ -2,72 +2,29 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Gerador de Questões | CAVEIRA</title>
-<link rel="stylesheet" href="./css/style.css">
+<title>Gerador de Questões</title>
+<link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
-<header>
-  <h2>Gerador de Questões – PCSP / VUNESP</h2>
-</header>
+
+<header><h2>Gerador de Questões</h2></header>
 
 <main class="card">
-  <label>Matéria:</label><br>
-  <input id="materia"><br><br>
-
-  <label>Enunciado:</label><br>
-  <textarea id="enunciado"></textarea><br><br>
-
-  <label>Alternativa A:</label><br>
-  <input id="a"><br>
-
-  <label>Alternativa B:</label><br>
-  <input id="b"><br>
-
-  <label>Alternativa C:</label><br>
-  <input id="c"><br>
-
-  <label>Alternativa D:</label><br>
-  <input id="d"><br>
-
-  <label>Alternativa E:</label><br>
-  <input id="e"><br><br>
-
-  <label>Gabarito (A–E):</label><br>
-  <input id="gabarito"><br><br>
-
-  <label>Comentário:</label><br>
-  <textarea id="comentario"></textarea><br><br>
-
-  <button onclick="gerar()">Gerar Questão</button>
-  <pre id="saida"></pre>
+<textarea id="out" rows="10"></textarea>
+<button onclick="gerar()">Gerar Modelo</button>
 </main>
 
 <script>
-function gerar() {
-  const q = {
-    id: Date.now(),
-    materia: materia.value,
-    enunciado: enunciado.value,
-    alternativas: {
-      A: a.value,
-      B: b.value,
-      C: c.value,
-      D: d.value,
-      E: e.value
-    },
-    gabarito: gabarito.value.toUpperCase(),
-    comentario: comentario.value
-  };
-
-  document.getElementById("saida").innerText =
-    JSON.stringify(q, null, 2);
+function gerar(){
+document.getElementById("out").value = JSON.stringify({
+  id: Date.now(),
+  materia: "Processo Penal",
+  enunciado: "Texto da questão",
+  alternativas:{A:"",B:"",C:"",D:"",E:""},
+  gabarito:"A"
+},null,2);
 }
 </script>
-
-<footer style="text-align:center">
-  <button onclick="window.location.href='modo.html'">⬅ Voltar</button>
-</footer>
 
 </body>
 </html>
