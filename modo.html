@@ -2,55 +2,49 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Escolha o Modo | CAVEIRA PCSP</title>
-<link rel="stylesheet" href="./css/style.css">
+<title>CAVEIRA | PCSP 2026</title>
+<link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
+
 <header>
   <h1>CAVEIRA</h1>
-  <p>Escolha o modo de estudo – PCSP 2026 (VUNESP)</p>
+  <p>Agente de Polícia • PCSP • VUNESP</p>
 </header>
 
-<main class="cards"> <div class="card">
-  <h3>📚 Materiais de Estudo</h3>
-  <p>Conteúdos focados PCSP</p>
-  <button onclick="window.location.href='materiais.html'">Acessar</button>
-</div>
-
-
+<main class="cards">
   <div class="card">
     <h3>📝 Simulado Real</h3>
-    <p>80 questões • Prova completa • Sem gabarito</p>
-    <button onclick="iniciar('simulado')">Iniciar</button>
+    <button onclick="start('simulado')">Iniciar</button>
   </div>
 
   <div class="card">
     <h3>🎯 Treino por Matéria</h3>
-    <p>Estudo direcionado com comentários</p>
     <select id="materia">
-      <option value="Processo Penal">Processo Penal</option>
-      <option value="Direito Penal">Direito Penal</option>
-      <option value="Constitucional">Constitucional</option>
-      <option value="Português">Português</option>
+      <option>Português</option>
+      <option>Direito Penal</option>
+      <option>Processo Penal</option>
+      <option>Constitucional</option>
     </select>
-    <button onclick="iniciar('treino')">Iniciar</button>
+    <button onclick="start('treino')">Iniciar</button>
   </div>
 
   <div class="card">
-    <h3>🤖 Treino Inteligente</h3>
-    <p>Foco automático nos seus erros</p>
-    <button onclick="iniciar('inteligente')">Iniciar</button>
+    <h3>🧠 Treino Inteligente (IA)</h3>
+    <button onclick="start('inteligente')">Iniciar</button>
   </div>
 
+  <div class="card">
+    <h3>📚 Materiais de Estudo</h3>
+    <button onclick="location.href='materiais.html'">Abrir</button>
+  </div>
 </main>
 
 <script>
-function iniciar(modo) {
-  const materia = document.getElementById("materia")?.value || "";
+function start(modo){
   localStorage.setItem("modo", modo);
-  localStorage.setItem("materia", materia);
-  window.location.href = "simulado.html";
+  localStorage.setItem("materia", document.getElementById("materia")?.value || "");
+  location.href="simulado.html";
 }
 </script>
 
