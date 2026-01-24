@@ -2,28 +2,26 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Simulado PCSP</title>
-<link rel="stylesheet" href="./css/style.css">
+<title>Simulado</title>
+<link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
+
 <header>
-  <h2 id="titulo">Simulado PCSP – VUNESP</h2>
-  <div id="info">
-    <span id="contador"></span>
-    <span id="timer"></span>
-  </div>
+  <h2 id="titulo">Simulado</h2>
+  <p id="contador"></p>
 </header>
 
 <main id="questao"></main>
 
 <footer>
-  <button onclick="anterior()">Anterior</button>
-  <button onclick="proxima()">Próxima</button>
+  <button onclick="anterior()">⬅ Anterior</button>
+  <button onclick="proxima()">Próxima ➡</button>
   <button onclick="finalizar()">Finalizar</button>
 </footer>
 
-<script src="./js/engine.js"></script>
-<script src="./js/timer.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/ai.js"></script>
+
 </body>
 </html>
