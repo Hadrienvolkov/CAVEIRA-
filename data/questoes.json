@@ -1,44 +1,28 @@
 [
   {
-    "id": 1,
-    "materia": "Processo Penal",
-    "enunciado": "Segundo o CPP, o prazo do inquérito policial, quando o indiciado estiver preso, será de:",
-    "alternativas": {
-      "A": "5 dias",
-      "B": "10 dias",
-      "C": "15 dias",
-      "D": "30 dias",
-      "E": "45 dias"
+    "id":1,
+    "materia":"Processo Penal",
+    "enunciado":"Segundo o CPP, o prazo do inquérito policial com indiciado preso é de:",
+    "alternativas":{
+      "A":"5 dias",
+      "B":"10 dias",
+      "C":"15 dias",
+      "D":"30 dias",
+      "E":"45 dias"
     },
-    "gabarito": "B",
-    "comentario": "Art. 10 do CPP – literalidade cobrada pela VUNESP."
+    "gabarito":"B"
   },
   {
-    "id": 2,
-    "materia": "Direito Penal",
-    "enunciado": "O crime de peculato está previsto no artigo:",
-    "alternativas": {
-      "A": "312 do Código Penal",
-      "B": "313 do Código Penal",
-      "C": "155 do Código Penal",
-      "D": "168 do Código Penal",
-      "E": "299 do Código Penal"
+    "id":2,
+    "materia":"Direito Penal",
+    "enunciado":"O crime de peculato está previsto no artigo:",
+    "alternativas":{
+      "A":"312",
+      "B":"313",
+      "C":"155",
+      "D":"168",
+      "E":"299"
     },
-    "gabarito": "A",
-    "comentario": "Art. 312 do CP."
-  },
-  {
-    "id": 3,
-    "materia": "Constitucional",
-    "enunciado": "Constitui fundamento da República Federativa do Brasil:",
-    "alternativas": {
-      "A": "Pluralismo político",
-      "B": "Livre iniciativa",
-      "C": "Legalidade",
-      "D": "Eficiência",
-      "E": "Moralidade"
-    },
-    "gabarito": "A",
-    "comentario": "Art. 1º da Constituição Federal."
+    "gabarito":"A"
   }
 ]
