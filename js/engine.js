@@ -1,100 +1,58 @@
-let questoes = [];
-let questoesSelecionadas = [];
-let indice = 0;
-let respostas = [];
+let questoes=[], lista=[], i=0, respostas={};
 
-const modo = localStorage.getItem("modo") || "simulado";
-const materiaEscolhida = localStorage.getItem("materia") || "";
+const modo = localStorage.getItem("modo");
+const materia = localStorage.getItem("materia");
 
-fetch("./data/questoes.json")
-  .then(r => r.json())
-  .then(dados => {
-    questoes = dados;
+fetch("data/questoes.json")
+.then(r=>r.json())
+.then(d=>{
+  questoes=d;
 
-    if (modo === "treino" && materiaEscolhida) {
-      questoesSelecionadas = questoes.filter(q => q.materia === materiaEscolhida);
-    } 
-    else if (modo === "inteligente") {
-      const erros = JSON.parse(localStorage.getItem("erros") || "{}");
-      questoesSelecionadas = questoes.sort((a, b) => 
-        (erros[b.materia] || 0) - (erros[a.materia] || 0)
-      ).slice(0, 80);
-    } 
-    else {
-      questoesSelecionadas = [...questoes];
-    }
+  if(modo==="treino"){
+    lista = questoes.filter(q=>q.materia===materia);
+  } else if(modo==="inteligente"){
+    lista = treinoInteligente(questoes);
+  } else {
+    lista = [...questoes];
+  }
 
-    questoesSelecionadas = questoesSelecionadas
-      .sort(() => Math.random() - 0.5)
-      .slice(0, 80);
+  lista = lista.sort(()=>Math.random()-0.5);
+  mostrar();
+});
 
-    mostrarQuestao();
-  });
+function mostrar(){
+  if(!lista.length){
+    document.getElementById("questao").innerHTML="<p>Sem questões disponíveis.</p>";
+    return;
+  }
+  const q = lista[i];
+  document.getElementById("contador").innerText=`Questão ${i+1} de ${lista.length}`;
 
-function mostrarQuestao() {
-  const q = questoesSelecionadas[indice];
-  if (!q) return;
-
-  document.getElementById("contador").innerText =
-    `Questão ${indice + 1} de ${questoesSelecionadas.length}`;
-
-  const area = document.getElementById("questao");
-  area.innerHTML = `
+  document.getElementById("questao").innerHTML=`
     <div class="card">
       <p><strong>${q.enunciado}</strong></p>
-      ${Object.entries(q.alternativas).map(([k, v]) => `
+      ${Object.entries(q.alternativas).map(([k,v])=>`
         <label>
-          <input type="radio" name="alt" value="${k}"
-          ${respostas[indice] === k ? "checked" : ""}
-          onclick="responder('${k}')">
+          <input type="radio" name="alt" onclick="responder('${k}')"
+          ${respostas[q.id]===k?'checked':''}>
           ${k}) ${v}
-        </label><br>
-      `).join("")}
-      ${modo !== "simulado" ? `<hr><p><strong>Comentário:</strong> ${q.comentario}</p>` : ""}
-    </div>
-  `;
+        </label>`).join("")}
+    </div>`;
 }
 
-function responder(opcao) {
-  respostas[indice] = opcao;
+function responder(op){
+  respostas[lista[i].id]=op;
 }
 
-function proxima() {
-  if (indice < questoesSelecionadas.length - 1) {
-    indice++;
-    mostrarQuestao();
-  }
-}
+function proxima(){ if(i<lista.length-1){i++;mostrar();}}
+function anterior(){ if(i>0){i--;mostrar();}}
 
-function anterior() {
-  if (indice > 0) {
-    indice--;
-    mostrarQuestao();
-  }
-}
-
-function finalizar() {
-  let acertos = 0;
-  let erros = JSON.parse(localStorage.getItem("erros") || "{}");
-
-  questoesSelecionadas.forEach((q, i) => {
-    if (respostas[i] === q.gabarito) acertos++;
-    else erros[q.materia] = (erros[q.materia] || 0) + 1;
-  });
-
-  localStorage.setItem("erros", JSON.stringify(erros));
-
-  document.body.innerHTML = `
-    <header>
-      <h2>Resultado Final</h2>
-    </header>
+function finalizar(){
+  analisarIA(lista,respostas);
+  document.body.innerHTML=`
+    <header><h2>Simulado Finalizado</h2></header>
     <main class="card">
-      <p>Acertos: ${acertos}</p>
-      <p>Total: ${questoesSelecionadas.length}</p>
-      <p>Aproveitamento: ${Math.round((acertos / questoesSelecionadas.length) * 100)}%</p>
-      <br>
-      <button onclick="window.location.href='modo.html'">⬅ Voltar ao início</button>
-      <button onclick="window.location.href='materiais.html'">📚 Estudar meus erros</button>
-    </main>
-  `;
+      <p>Confira seu desempenho e treine suas fraquezas.</p>
+      <button onclick="location.href='modo.html'">⬅ Voltar ao início</button>
+    </main>`;
 }
