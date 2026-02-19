@@ -1,47 +1,56 @@
 body {
-  margin:0;
-  font-family:Arial;
-  background:#0b0b0b;
-  color:#eee;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0f1115;
+  color: #e4e6eb;
 }
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+
 header {
-  text-align:center;
-  padding:20px;
+  text-align: center;
+  margin-bottom: 30px;
 }
-.cards {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:20px;
-  padding:20px;
+
+header h1 {
+  margin: 0;
+  font-size: 28px;
+  letter-spacing: 2px;
 }
-.card {
-  background:#161616;
-  border-radius:14px;
-  padding:20px;
-  box-shadow:0 10px 20px #000;
+
+header p {
+  opacity: 0.6;
 }
-button, select {
-  width:100%;
-  padding:10px;
-  margin-top:10px;
-  border-radius:8px;
-  border:none;
+
+.painel .card {
+  background: #1a1d24;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
 }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  text-align: center;
+}
+
 button {
-  background:#c62828;
-  color:#fff;
-  font-weight:bold;
+  background: #1f6feb;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-right: 10px;
 }
-main#questao {
-  padding:20px;
-}
-footer {
-  display:flex;
-  gap:10px;
-  justify-content:center;
-  padding:20px;
-}
-label {
-  display:block;
-  margin:8px 0;
+
+button:hover {
+  opacity: 0.8;
 }
