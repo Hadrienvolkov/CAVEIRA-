@@ -1,4 +1,4 @@
-const DB_VERSION = "1.0.0";
+const DB_VERSION = "2.0.0";
 
 let db = {
   version: DB_VERSION,
@@ -8,8 +8,15 @@ let db = {
     horasTotais: 0,
     nivel: 1,
     ultimaData: null
+  },
+  config: {
+    modoBaixaEnergia: false
   }
 };
+
+let timer;
+let tempoRestante = 0;
+let tempoEstudadoHoje = 0;
 
 function salvar() {
   localStorage.setItem("caveiraDB", JSON.stringify(db));
@@ -29,29 +36,79 @@ function atualizarTela() {
   document.getElementById("horas").textContent = db.perfil.horasTotais;
   document.getElementById("nivel").textContent = db.perfil.nivel;
 
-  document.getElementById("fraseStatus").textContent =
-    db.perfil.streakAtual > 0
-      ? "Operador em execução. Missão ativa."
-      : "Aguardando início da missão.";
+  document.getElementById("fraseStatus").textContent = gerarMissao();
 }
 
-function registrarEstudo() {
+function gerarMissao() {
+  const dia = new Date().getDay();
+
+  if (dia === 0) {
+    return "Domingo Leve: Revisão estratégica + leitura leve.";
+  }
+
+  if (db.config.modoBaixaEnergia) {
+    return "Modo Baixa Energia: 1 Pomodoro mínimo para proteger a sequência.";
+  }
+
+  return "Missão Padrão: 3 Pomodoros focados (Português + Direito).";
+}
+
+function alternarModoEnergia() {
+  db.config.modoBaixaEnergia = !db.config.modoBaixaEnergia;
+  salvar();
+  atualizarTela();
+}
+
+function iniciarPomodoro() {
+  if (timer) return;
+
+  tempoRestante = db.config.modoBaixaEnergia ? 15 * 60 : 25 * 60;
+
+  timer = setInterval(() => {
+    tempoRestante--;
+
+    if (tempoRestante <= 0) {
+      clearInterval(timer);
+      timer = null;
+      registrarEstudoReal();
+      alert("Pomodoro concluído. Missão avançando.");
+    }
+
+    atualizarTimerTela();
+  }, 1000);
+}
+
+function pausarPomodoro() {
+  clearInterval(timer);
+  timer = null;
+}
+
+function atualizarTimerTela() {
+  const minutos = Math.floor(tempoRestante / 60);
+  const segundos = tempoRestante % 60;
+  document.getElementById("timer").textContent =
+    `${String(minutos).padStart(2,"0")}:${String(segundos).padStart(2,"0")}`;
+}
+
+function registrarEstudoReal() {
   const hoje = new Date().toDateString();
+
+  tempoEstudadoHoje++;
 
   if (db.perfil.ultimaData !== hoje) {
     db.perfil.streakAtual += 1;
-    db.perfil.horasTotais += 1;
-
-    if (db.perfil.streakAtual > db.perfil.recorde) {
-      db.perfil.recorde = db.perfil.streakAtual;
-    }
-
-    db.perfil.nivel = Math.floor(db.perfil.horasTotais / 10) + 1;
     db.perfil.ultimaData = hoje;
-
-    salvar();
-    atualizarTela();
   }
+
+  if (db.perfil.streakAtual > db.perfil.recorde) {
+    db.perfil.recorde = db.perfil.streakAtual;
+  }
+
+  db.perfil.horasTotais += db.config.modoBaixaEnergia ? 0.5 : 1;
+  db.perfil.nivel = Math.floor(db.perfil.horasTotais / 10) + 1;
+
+  salvar();
+  atualizarTela();
 }
 
 function exportarDados() {
