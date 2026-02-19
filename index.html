@@ -1,9 +1,54 @@
+
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url=modo.html">
-  <title>CAVEIRA PCSP 2026</title>
+  <title>Projeto Caveira - Centro de Operações</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 </head>
-<body></body>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>PROJETO CAVEIRA</h1>
+      <p>Centro de Operações Estratégicas</p>
+    </header>
+
+    <section class="painel">
+      <div class="card">
+        <h2>Status Operacional</h2>
+        <p id="fraseStatus">Carregando sistema...</p>
+      </div>
+
+      <div class="card grid">
+        <div>
+          <h3>🔥 Streak</h3>
+          <p id="streak">0</p>
+        </div>
+        <div>
+          <h3>🏆 Recorde</h3>
+          <p id="recorde">0</p>
+        </div>
+        <div>
+          <h3>⏱ Horas Totais</h3>
+          <p id="horas">0</p>
+        </div>
+        <div>
+          <h3>🎖 Nível</h3>
+          <p id="nivel">1</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <button onclick="registrarEstudo()">Registrar Missão Concluída</button>
+        <button onclick="exportarDados()">Exportar Backup</button>
+        <input type="file" id="importarArquivo" hidden>
+        <button onclick="document.getElementById('importarArquivo').click()">Importar Backup</button>
+      </div>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
 </html>
